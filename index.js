@@ -1,3 +1,7 @@
-import { define } from './lib/kind.js';
+"use strict";
 
-export { define }
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.define = require('./lib/kind.js').define;
