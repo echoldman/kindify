@@ -46,7 +46,7 @@ const sub_definition = {
   ],
 }
 
-import { define } from './index.js';
+import { define } from '../src/kind.mjs';
 
 const kindSub = define(sub_definition);
 const sub1 = kindSub.create({ title: 'hello, world 1', len: 10 });

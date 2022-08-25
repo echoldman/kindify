@@ -2,8 +2,19 @@
   "name": "kindify",
   "version": "0.0.1",
   "description": "",
-  "scripts": {},
+  "scripts": {
+    "compile": "npx babel src/ --out-dir lib"
+  },
   "keywords": [],
   "author": "Echoldman Dong",
-  "license": "MIT"
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/echoldman/kindify/issues"
+  },
+  "homepage": "https://github.com/echoldman/kindify#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.18.10",
+    "@babel/core": "^7.18.13",
+    "@babel/preset-env": "^7.18.10"
+  }
 }
