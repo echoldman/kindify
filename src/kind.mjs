@@ -54,25 +54,39 @@ function checkType(type, options) {
  */
 function checkTypeValue(type, value, nullable, name, category) {
   if (nullable) {
-    if (value !== null) _checkTypeValue(type, value, name, category);
+    if (value !== null) checkParamValue(type, value, name, category);
   } else {
     _checkTypeValue(type, value, name, category);
   }
 }
 
-function _checkTypeValue(type, value, name, category) {
+function checkParamValue(type, value, name, category) {
   if (type === 'integer') {
-    if (!variantTypeIs(value, 'number')) throw `${category} ${name} 的实际值不是数值类型`;
-    if (numberIsFloat(value)) throw `${category} ${name} 要求是 integer 实际值是 float`;
+    if (!variantTypeIs(value, 'number')) throwMessage(name, category, '的实际值不是数值类型');
+    if (numberIsFloat(value)) throw_message(name, category, '要求是 integer 实际值是 float');
   } else if (type === 'float') {
-    if (!variantTypeIs(value, 'number')) throw `${category} ${name} 的实际值不是数值类型`;
-    if (numberIsInteger(value)) throw `${category} ${name} 要求是 float 实际值是 ineger`;
+    if (!variantTypeIs(value, 'number')) throwMessage(name, category, '的实际值不是数值类型');
+    if (numberIsInteger(value)) throw_message(name, category, '要求是 float 实际值是 ineger');
   } else if (type === 'string') {
-    if (!variantTypeIs(value, 'string')) throw `${category} ${name} 的实际值不是 string`;
+    if (!variantTypeIs(value, 'string')) throwMessage(name, category, '的实际值不是 string');
   } else if (type === 'boolean') {
-    if (!variantTypeIs(value, 'boolean')) throw `${category} ${name} 的实际值不是 boolean`;
+    if (!variantTypeIs(value, 'boolean')) throwMessage(name, category, '的实际值不是 boolean');
   } else {
-    throw 'type 只能是 integer float string boolean 其中之一';
+    throwMessage(name, category, '只能是 integer float string boolean 其中之一');
+  }
+}
+
+function throwMessage(name, category, message) {
+  if (variantTypeIs(category, 'function')) category = category();
+  throw `${category} ${name} ${message}`;
+}
+
+function checkFunctionParamValue(params, ...values) {
+  if (!variantTypeIs(params, 'array')) throw `表示形参类型的变量应该是 array`;
+  const len = params.length;
+  if (values.length < len) throw `实参的个数少于形参的个数`;
+  for (let i = 0; i < count; i++) {
+    checkParamValue(params[i], values[i], `parameter ${i+1}`, () => { (new Error()).stack.split('\n')[5].trim().split(' ')[1]; });
   }
 }
 
@@ -236,4 +250,4 @@ function define(definition) {
   return kind;
 }
 
-export { define }
+export { define, checkFunctionParamValue }
