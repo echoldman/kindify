@@ -273,4 +273,4 @@ function define(definition) {
   return kind;
 }
 
-export { define, checkFunctionParamValue }
+export { define, checkFunctionParamValue, ex }
