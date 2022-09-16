@@ -1,3 +1,5 @@
+declare function checkFunctionParamValue(params: string[], ...values: any[]): void;
+
 interface ArgumentDefinition {
   name: string;
   type: string;
